@@ -6,15 +6,20 @@ RNX_met = "ISTA00TUR_R_20231680000_01D_30S_MM.rnx"
 f = open(RNX_met,"r")
 data = f.readlines()
 f.close()
+
+#delete header
 for i in range(len(data)):
     if data[i].split()[0] == "END":
         break
 del data[:i+1]
+
+#delete before 8 a.m.
 for i in range(len(data)):
     if data[i].split()[3] == "8" and data[i].split()[4] == "0" and data[i].split()[5] == "0":
         break
 del data[:i]
 
+#delete after 8 p.m.
 for K in range(len(data)):
     if data[K].split()[3] == "20" and data[K].split()[4] == "0" and data[K].split()[5] == "0":
         break
