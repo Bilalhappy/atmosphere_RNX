@@ -1,6 +1,6 @@
 import psypy.psySI as SI
 
-RNX_met = "ISTA00TUR_R_20231680000_01D_30S_MM.rnx"
+RNX_met = "ISTA00TUR_R_20231790000_01D_30S_MM.rnx"
 
 
 f = open(RNX_met,"r")
@@ -37,8 +37,8 @@ while i < (K+1):
     press = float(data[i].split()[6])
     T = float(data[i].split()[7])
     rh = float(data[i].split()[8])
-    S=SI.state("DBT",T+273.15,"RH",rh/100,press*133.322387415) #mmHg to Pa -> *133.322387415
-    f.write(f"{data[i][:22]}\t{press}\t\t\t{T}\t\t\t{rh}\t\t{round(S[5]-273,1)}\n\n")
+    S=SI.state("DBT",T+273.15,"RH",rh/100,press*100) #mBar to Pa *100; mBar to mmHg *0.750061683
+    f.write(f"{data[i][:22]}\t{round(press*0.750061683,1)}\t\t\t{T}\t\t\t{rh}\t\t{round(S[5]-273,1)}\n\n")
     i += 30
 f.close()
     
